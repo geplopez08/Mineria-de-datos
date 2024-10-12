@@ -1,0 +1,47 @@
+install.packages("arules")
+library(arules)
+
+data_persona <- read.csv("C:\\Users\\gepacheco\\OneDrive - UVG\\Escritorio\\Tarea\\db_csv_\\db_csv_\\PERSONA_BDP.csv", sep=",")
+
+View(data_persona)
+
+reglas_persona <- apriori(data_persona, parameter = list(support=0.2, confidence=0.5))
+
+#Al momento de aplicar la instrucción, la consola me informó que había un problema con la columna PEA, que no era discretizable.
+
+warnings()
+
+str(data_persona)
+
+#Por lo que tomando la base original, fue eliminando las columnas que estaban causando error en el proceso de discretización.
+
+data_sin_PEA <- data_persona[, !(names(data_persona) %in% "PEA")]
+
+data_sin_POCUPA <- data_sin_PEA[, !(names(data_sin_PEA) %in% "POCUPA")]
+
+data_sin_POCUPA <- data_sin_POCUPA[, !(names(data_sin_POCUPA) %in% "PEI")]
+
+#Y con ello apliqué el algoritmo
+
+reglas_persona <- apriori(data_sin_POCUPA, parameter = list(support=0.2, confidence=0.5))
+
+inspect(reglas_persona[0:100])
+inspect(reglas_persona[100:200])
+inspect(reglas_persona[200:300])
+inspect(reglas_persona[300:400])
+inspect(reglas_persona[400:500])
+inspect(reglas_persona[500:600])
+inspect(reglas_persona[600:700])
+inspect(reglas_persona[700:800])
+inspect(reglas_persona[800:900])
+inspect(reglas_persona[900:1000])
+inspect(reglas_persona[1000:1100])
+
+#Encontré la asociación "Departamento de nacimiento" y "¿Cuál fue el nivel de estudios más alto que aprobó?" 
+#PCP10_B=[1,7)}                     => {PCP17_A=[3,7]}                     0.2436931 0.7609297  0.3202570 1.1156612 3631340
+
+#Encontré la asociación "Departamento de nacimiento" y "En los últimos tres meses, ¿ha usado internet?"
+#{PCP10_B=[7,14)}                    => {PCP26_C=[2,9]}                     0.2066577 0.6395238  0.3231430 1.0762024 3079465
+
+#Encontré la asociación "Departamento de nacimiento" y "¿En qué idioma sabe leer y escribir? Idioma 1"
+#{PCP10_B=[7,14)}                    => {PCP23_A=[25,28]}                   0.2030525 0.6283671  0.3231430 0.9674903 3025743
