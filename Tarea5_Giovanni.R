@@ -15,6 +15,8 @@ arbol <- rpart(DEPARTAMENTO ~
 rpart.plot(arbol, type=2, extra=0, under = TRUE, fallen.leaves = TRUE, box.palette = "BuGn", 
            main ="Predicción de departamento", cex = 1)
 
+hogar <- read.csv("C:\\Users\\geplo\\OneDrive\\Escritorio\\MAESTRIA\\Ciclo 4\\Minería\\Tarea 2\\db_csv\\db_csv_\\HOGAR_BDP.csv", sep = ",")
+
 arbol2 <- rpart(AREA ~
                   PCH15+
                   PCH1+
