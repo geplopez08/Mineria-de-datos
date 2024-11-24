@@ -49,3 +49,19 @@ dato_nuevo2 <- data.frame(
 
 prediccion2 <- predict(bosque, dato_nuevo2)
 prediccion2
+
+dato_nuevo3 <- data.frame(
+  AREA=1,
+  PEI3=2
+)
+
+prediccion3 <- predict(bosque, dato_nuevo3)
+prediccion3
+
+dato_nuevo4 <- data.frame(
+  AREA=2,
+  PEI3=1
+)
+
+prediccion4 <- predict(bosque, dato_nuevo4)
+prediccion4
